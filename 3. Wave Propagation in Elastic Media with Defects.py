@@ -1,3 +1,6 @@
+# %%
+%run autoimport.py
+
 # %% setup
 import os
 import numpy as np

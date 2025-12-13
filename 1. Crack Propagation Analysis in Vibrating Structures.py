@@ -80,7 +80,7 @@
 # Print the memory address of the ureg object for verification
 if 'ureg' not in globals():
     import pint
-    from pint import UnitRegistry
+    # from pint import UnitRegistry
 
     ureg = pint.UnitRegistry()
     Q = ureg.Quantity
@@ -97,7 +97,7 @@ from scipy import integrate
 
 # Define symbolic variables
 z= sp.symbols('z', complex=True)
-omega = sp.symbols('omega', real=True, positive=True)
+#omega = sp.symbols('omega', real=True, positive=True)
 
 
 # Muskhelishvili complex potentials for a crack
@@ -165,9 +165,8 @@ def energy_release_rate(K_I, E):
 E_steel_val = 200e9  # 200 GPa
 E_steel=Q(200, 'GPa')
 
-G_values = [energy_release_rate(k, E_steel) for k in K_I_values]
+#G_values = [energy_release_rate(k, E_steel) for k in K_I_values]
 G_values = K_I_values ** 2 / E_steel
-
 
 G_values.ito('J/m^2')
 #%%
@@ -253,13 +252,13 @@ plt.grid(True)
 plt.plot([-crack_length.m/2, crack_length.m/2], [0, 0], 'k-', linewidth=3)  # Draw the crack
 plt.show()
 
-#%%
+#%% Stress Singularity Near Crack Tip
 r_values = np.logspace(-4, -2, 100)  # Distance from crack tip in meters
 theta_values = [0, np.pi/4, np.pi/2, 3*np.pi/4, np.pi]  # Different angles
 
 plt.figure(figsize=(10, 8))
 for theta in theta_values:
-    K_I = dynamic_stress_intensity_factor(crack_length/2, load_amplitude, omega, 0)
+    K_I = dynamic_stress_intensity_factor(crack_length.m/2, load_amplitude.m, omega.m, 0)
     sigma_y = K_I / np.sqrt(2*np.pi*r_values) * np.cos(theta/2) * (1 + np.sin(theta/2) * np.sin(3*theta/2))
     plt.loglog(r_values, sigma_y, linewidth=2, label=f'θ = {theta:.2f} rad')
 
@@ -270,10 +269,10 @@ plt.grid(True, which="both", ls="--")
 plt.legend()
 plt.show()
 
-#%%
-theta = np.linspace(0, 2*np.pi, 100)
-r = 0.001  # Fixed distance from crack tip (1 mm)
-K_I = dynamic_stress_intensity_factor(crack_length/2, load_amplitude, omega, 0)
+#%% Williams' expansion
+theta = np.linspace(0, 2*np.pi, 100) * ureg.radian
+r = 0.001 * ureg.meter # Fixed distance from crack tip (1 mm)
+K_I = dynamic_stress_intensity_factor(crack_length/2, load_amplitude, omega, 0 * ureg.second)
 
 # Calculate stress components using Williams' expansion
 sigma_r = K_I / np.sqrt(2*np.pi*r) * np.cos(theta/2) * (1 - np.sin(theta/2) * np.sin(3*theta/2))
@@ -281,15 +280,17 @@ sigma_theta = K_I / np.sqrt(2*np.pi*r) * np.cos(theta/2) * (1 + np.sin(theta/2) 
 tau_r_theta = K_I / np.sqrt(2*np.pi*r) * np.sin(theta/2) * np.cos(theta/2) * np.cos(3*theta/2)
 
 # Convert to MPa for better readability
-sigma_r_MPa = sigma_r / 1e6
-sigma_theta_MPa = sigma_theta / 1e6
-tau_r_theta_MPa = tau_r_theta / 1e6
+print(sigma_r.units)
+sigma_r.ito('MPa')
+sigma_theta.ito('MPa')
+tau_r_theta.ito('MPa')
 
 #%%
+ureg.setup_matplotlib(enable=True)
 fig, ax = plt.subplots(figsize=(10, 10), subplot_kw={'projection': 'polar'})
-ax.plot(theta, sigma_r_MPa, label='σ_r')
-ax.plot(theta, sigma_theta_MPa, label='σ_θ')
-ax.plot(theta, tau_r_theta_MPa, label='τ_rθ')
+ax.plot(theta, sigma_r, label='σ_r')
+ax.plot(theta, sigma_theta, label='σ_θ')
+ax.plot(theta, tau_r_theta, label='τ_rθ')
 ax.set_title(f'Stress Components Around Crack Tip at r = {r*1000:.1f} mm')
 ax.set_theta_zero_location('E')
 ax.set_theta_direction(-1)
@@ -303,23 +304,25 @@ def frequency_response_analysis(crack_length, load_amplitude, freq_range, n_poin
     """Analyze how frequency affects the maximum stress intensity factor"""
     frequencies = np.linspace(freq_range[0], freq_range[1], n_points)
     max_K_values = []
-
+    freq=frequencies[0]
     for freq in frequencies:
-        omega = 2 * np.pi * freq
+        omega = freq.to('radian/second')
         # Find maximum K_I over one cycle
         times = np.linspace(0, 1/freq, 20)
         k_values = [dynamic_stress_intensity_factor(crack_length/2, load_amplitude, omega, t)
                    for t in times]
         max_K_values.append(max(k_values))
-
+    print(max_K_values)
     return frequencies, np.array(max_K_values)
 
 #%%
-freq_range = (10, 1000)  # Hz
+freq_range = Q( (10, 1000), 'turn/second')  # Frequency range from 10 Hz to 1000 Hz
+n_points=50
 frequencies, max_K_values = frequency_response_analysis(
     crack_length=crack_length,
     load_amplitude=load_amplitude,
     freq_range=freq_range
+    ,n_points=n_points
 )
 
 plt.figure(figsize=(10, 6))

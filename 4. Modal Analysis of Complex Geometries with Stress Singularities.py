@@ -1,3 +1,6 @@
+# %%
+%run autoimport.py
+
 # %% setup
 import numpy as np
 import sympy as sp

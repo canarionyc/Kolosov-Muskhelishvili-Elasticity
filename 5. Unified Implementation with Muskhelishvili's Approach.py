@@ -1,3 +1,6 @@
+# %%
+%run autoimport.py
+
 # %% Complex Potentials Visualization
 import matplotlib.pyplot as plt
 import numpy as np
