@@ -1,0 +1,82 @@
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision ac0c07e16acdb7fcdf327716c1caf9d07c46c4f5)
++++ b/.idea/vcs.xml	(date 1758256649159)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++    <mapping directory="" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectModuleManager\">\r\n    <modules>\r\n      <module fileurl=\"file://$PROJECT_DIR$/.idea/Muskhelishvili_Theory_of_Vibrations.iml\" filepath=\"$PROJECT_DIR$/.idea/Muskhelishvili_Theory_of_Vibrations.iml\" />\r\n    </modules>\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+--- a/.idea/modules.xml	(revision ac0c07e16acdb7fcdf327716c1caf9d07c46c4f5)
++++ b/.idea/modules.xml	(date 1758256649156)
+@@ -3,6 +3,7 @@
+   <component name="ProjectModuleManager">
+     <modules>
+       <module fileurl="file://$PROJECT_DIR$/.idea/Muskhelishvili_Theory_of_Vibrations.iml" filepath="$PROJECT_DIR$/.idea/Muskhelishvili_Theory_of_Vibrations.iml" />
++      <module fileurl="file://$PROJECT_DIR$/../pint-testing/.idea/pint-testing.iml" filepath="$PROJECT_DIR$/../pint-testing/.idea/pint-testing.iml" />
+     </modules>
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/Muskhelishvili_Theory_of_Vibrations.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\" />\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n  <component name=\"PyDocumentationSettings\">\r\n    <option name=\"analyzeDoctest\" value=\"false\" />\r\n  </component>\r\n</module>
+===================================================================
+diff --git a/.idea/Muskhelishvili_Theory_of_Vibrations.iml b/.idea/Muskhelishvili_Theory_of_Vibrations.iml
+--- a/.idea/Muskhelishvili_Theory_of_Vibrations.iml	(revision ac0c07e16acdb7fcdf327716c1caf9d07c46c4f5)
++++ b/.idea/Muskhelishvili_Theory_of_Vibrations.iml	(date 1758256649151)
+@@ -4,6 +4,7 @@
+     <content url="file://$MODULE_DIR$" />
+     <orderEntry type="inheritedJdk" />
+     <orderEntry type="sourceFolder" forTests="false" />
++    <orderEntry type="module" module-name="pint-testing" />
+   </component>
+   <component name="PyDocumentationSettings">
+     <option name="analyzeDoctest" value="false" />
+Index: .idea/inspectionProfiles/profiles_settings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"InspectionProjectProfileManager\">\r\n  <settings>\r\n    <option name=\"USE_PROJECT_PROFILE\" value=\"false\" />\r\n    <version value=\"1.0\" />\r\n  </settings>\r\n</component>
+===================================================================
+diff --git a/.idea/inspectionProfiles/profiles_settings.xml b/.idea/inspectionProfiles/profiles_settings.xml
+--- a/.idea/inspectionProfiles/profiles_settings.xml	(revision ac0c07e16acdb7fcdf327716c1caf9d07c46c4f5)
++++ b/.idea/inspectionProfiles/profiles_settings.xml	(date 1758255505166)
+@@ -1,5 +1,6 @@
+ <component name="InspectionProjectProfileManager">
+   <settings>
++    <option name="PROJECT_PROFILE" value="Default" />
+     <option name="USE_PROJECT_PROFILE" value="false" />
+     <version value="1.0" />
+   </settings>
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"Black\">\r\n    <option name=\"sdkName\" value=\"Python 3.13\" />\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.13\" project-jdk-type=\"Python SDK\" />\r\n</project>
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision ac0c07e16acdb7fcdf327716c1caf9d07c46c4f5)
++++ b/.idea/misc.xml	(date 1758255505162)
+@@ -4,4 +4,7 @@
+     <option name="sdkName" value="Python 3.13" />
+   </component>
+   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13" project-jdk-type="Python SDK" />
++  <component name="PythonCompatibilityInspectionAdvertiser">
++    <option name="version" value="3" />
++  </component>
+ </project>
+\ No newline at end of file
