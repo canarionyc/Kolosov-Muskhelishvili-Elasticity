@@ -1,18 +1,11 @@
 # Jupytext configuration file
 
-# Define the pairing between notebooks and Python scripts
-# Notebooks are in the root directory
-# Python scripts are also in the root directory with the same name
+# Documentation: https://jupytext.readthedocs.io/en/latest/config.html
+
 [jupytext]
+# Pair notebooks with percent scripts
 formats = "ipynb,py:percent"
 
-# Configuration for percent format (Python scripts)
-[jupytext.formats."py:percent"]
-cell_markers = "#%%"
+# Filter metadata to avoid noisy diffs
 notebook_metadata_filter = "-all"
 cell_metadata_filter = "-all"
-
-# Configuration for the cell style in Python scripts
-[jupytext.cell_markers]
-cell = "#%%"
-comment = "#"

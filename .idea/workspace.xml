@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="251c647f-779f-432b-b256-e798a42a1208" name="Changes" comment="adding units to crack propagation">
-      <change afterPath="$PROJECT_DIR$/01-Torsion/01-torsion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Muskhelishvili_complex_variable.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lessons/02-epitrochoid.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lessons/map_square.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lessons/map_triangle.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/01-torsion.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/epitrochoid.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/map_square.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/map_triangle.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/01-Torsion/01-torsion.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lessons/01-torsion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupytext.toml" beforeDir="false" afterPath="$PROJECT_DIR$/jupytext.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +25,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Jupyter Notebook" />
       </list>
     </option>
   </component>
@@ -52,7 +60,10 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python tests.Doctests in function.executor": "Run",
     "Python.01-torsion.executor": "Run",
+    "Python.02-epitrochoid.executor": "Run",
     "Python.1. Crack Propagation Analysis in Vibrating Structures.executor": "Debug",
+    "Python.epitrochoid.executor": "Run",
+    "Python.map_triangle.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
@@ -64,7 +75,7 @@
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "to.speed.mode.migration.done": "true"
   }
 }]]></component>
@@ -167,7 +178,7 @@
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/01-Torsion/01-torsion.py</url>
+          <url>file://$PROJECT_DIR$/Lessons/01-torsion.py</url>
           <line>6</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
@@ -177,6 +188,9 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Kolosov_Muskhelishvili_Elasticity$01_torsion.coverage" NAME="01-torsion Coverage Results" MODIFIED="1766124001477" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/01-Torsion" />
     <SUITE FILE_PATH="coverage/Muskhelishvili_Theory_of_Vibrations$1__Crack_Propagation_Analysis_in_Vibrating_Structures.coverage" NAME="1. Crack Propagation Analysis in Vibrating Structures Coverage Results" MODIFIED="1758342889566" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Kolosov_Muskhelishvili_Elasticity$map_triangle.coverage" NAME="map_triangle Coverage Results" MODIFIED="1766380589995" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Lessons" />
     <SUITE FILE_PATH="coverage/Kolosov_Muskhelishvili_Elasticity$Doctests_in_function.coverage" NAME="Doctests in function Coverage Results" MODIFIED="1766122482962" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../Python313/Lib/site-packages/sympy/core" />
+    <SUITE FILE_PATH="coverage/Kolosov_Muskhelishvili_Elasticity$epitrochoid.coverage" NAME="epitrochoid Coverage Results" MODIFIED="1766380425464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Lessons" />
+    <SUITE FILE_PATH="coverage/Kolosov_Muskhelishvili_Elasticity$02_epitrochoid.coverage" NAME="02-epitrochoid Coverage Results" MODIFIED="1766380481042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Lessons" />
   </component>
 </project>
