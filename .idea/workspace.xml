@@ -5,16 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="251c647f-779f-432b-b256-e798a42a1208" name="Changes" comment="adding units to crack propagation">
-      <change afterPath="$PROJECT_DIR$/Lessons/02-epitrochoid.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lessons/map_square.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lessons/map_triangle.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/01-torsion.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/epitrochoid.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/map_square.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/map_triangle.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lessons/Phase 1 - The Toolkit/intro.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lessons/Phase 1 - The Toolkit/template.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lessons/Phase 2 - Torsion of Homogeneous Bars/02-epitrochoidal_beam.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/01-Torsion/01-torsion.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lessons/01-torsion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupytext.toml" beforeDir="false" afterPath="$PROJECT_DIR$/jupytext.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lessons/01-torsion.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lessons/Phase 2 - Torsion of Homogeneous Bars/01-torsion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/01-torsion.md" beforeDir="false" afterPath="$PROJECT_DIR$/Lessons/Phase 2 - Torsion of Homogeneous Bars/01-torsion.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,10 +71,17 @@
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "fileTemplates",
     "to.speed.mode.migration.done": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\Kolosov-Muskhelishvili-Elasticity\Lessons\Phase 2 - Torsion of Homogeneous Bars" />
+      <recent name="C:\dev\Kolosov-Muskhelishvili-Elasticity\Lessons\Phase 1 - The Toolkit" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="tests" factoryName="Autodetect">
       <module name="pint-testing" />
@@ -122,7 +125,6 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PY-253.29346.142" />
         <option value="bundled-python-sdk-f2b7a9f6281b-6e1f45a539f7-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.29346.142" />
       </set>
     </attachedChunks>
@@ -178,7 +180,7 @@
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Lessons/01-torsion.py</url>
+          <url>file://$PROJECT_DIR$/Lessons/Phase 2 - Torsion of Homogeneous Bars/01-torsion.py</url>
           <line>6</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
