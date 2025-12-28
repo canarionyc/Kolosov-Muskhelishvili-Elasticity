@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="251c647f-779f-432b-b256-e798a42a1208" name="Changes" comment="adding units to crack propagation">
-      <change afterPath="$PROJECT_DIR$/Lessons/Phase 1 - The Toolkit/intro.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lessons/Phase 1 - The Toolkit/template.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Lessons/Phase 2 - Torsion of Homogeneous Bars/02-epitrochoidal_beam.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/01-Saving.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lessons/01-torsion.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lessons/Phase 2 - Torsion of Homogeneous Bars/01-torsion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/01-torsion.md" beforeDir="false" afterPath="$PROJECT_DIR$/Lessons/Phase 2 - Torsion of Homogeneous Bars/01-torsion.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,31 +47,31 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python tests.Doctests in function.executor": "Run",
-    "Python.01-torsion.executor": "Run",
-    "Python.02-epitrochoid.executor": "Run",
-    "Python.1. Crack Propagation Analysis in Vibrating Structures.executor": "Debug",
-    "Python.epitrochoid.executor": "Run",
-    "Python.map_triangle.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/dev/Kolosov-Muskhelishvili-Elasticity",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "fileTemplates",
-    "to.speed.mode.migration.done": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python tests.Doctests in function.executor&quot;: &quot;Run&quot;,
+    &quot;Python.01-torsion.executor&quot;: &quot;Run&quot;,
+    &quot;Python.02-epitrochoid.executor&quot;: &quot;Run&quot;,
+    &quot;Python.1. Crack Propagation Analysis in Vibrating Structures.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.epitrochoid.executor&quot;: &quot;Run&quot;,
+    &quot;Python.map_triangle.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/dev/Kolosov-Muskhelishvili-Elasticity&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;fileTemplates&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\dev\Kolosov-Muskhelishvili-Elasticity\Lessons\Phase 2 - Torsion of Homogeneous Bars" />
