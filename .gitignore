@@ -208,3 +208,5 @@ __marimo__/
 .idea/workspace.xml
 *.nb
 /.idea
+*.asv
+*.gif
