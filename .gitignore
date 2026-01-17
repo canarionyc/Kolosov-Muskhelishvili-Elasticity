@@ -210,3 +210,5 @@ __marimo__/
 /.idea
 *.asv
 *.gif
+
+*.mat
