@@ -2,8 +2,8 @@
 clear; clc;
 syms z % the complex variable  in the physical plane z=x+iy 
 syms zeta % the variable in the transformed plane, where z = ω(ζ) 
-syms sig_inf r theta real
-syms R  positive
+syms sig_inf theta real
+syms R r positive
 
 % We assume uniaxial tension at infinity: σ_xx = 0, σ_yy =  σ_inf, τ_xy = 0.
 
@@ -18,7 +18,7 @@ omega_dot = diff(omega, zeta); % ω'(ζ) = R
 % We assume general Laurent series for exterior problem:
 % φ(ζ) = A*ζ + B/ζ
 % ψ(ζ) = C*ζ + D/ζ + E/ζ^3
-syms A B C D E
+syms A B C D E real
 
 % Infinity Conditions (Uniaxial Tension):
 % A = σ_inf / 4
@@ -27,10 +27,10 @@ syms A B C D E
 % A = sig_inf / 4;
 % C = sig_inf / 2;
 
-phi = A * zeta + B / zeta
-phi_prime_zeta = diff(phi, zeta)
+Phi = A * zeta + B / zeta
+Phi_prime_zeta = diff(Phi, zeta)
 
-psi = C*zeta + D/zeta + E/zeta^3
+Psi = C*zeta + D/zeta + E/zeta^3
 
 %% 3. Boundary Condition   
 % Boundary Condition on the hole (|ζ|=1):
@@ -42,6 +42,7 @@ psi = C*zeta + D/zeta + E/zeta^3
 % On boundary ζ = σ (where σ*conj(σ) = 1)
 % conj(phi_prime_zeta) becomes A*R - B*R*σ^2
 % conj(psi) becomes C*R/σ + D*R*σ + E*R*σ^3
+syms sigma
 term1 = A*sigma + B/sigma;
 term2 = sigma * (A - B*sigma^2);
 term3 = C/sigma + D*sigma + E*sigma^3;
@@ -66,43 +67,52 @@ eqns=coeffs(expr, sigma)
 
 % phi_z = A*z + (Bsol*R^2)/z
 % psi_z = C*z + (Dsol*R^2)/z + (Esol*R^4)/z^3
-phi=subs(phi,[B],[Bsol])
-psi=subs(psi,[D,E],[Dsol,Esol])
+Phi=subs(Phi,[B],[Bsol])
+Psi=subs(Psi,[D,E],[Dsol,Esol])
 
-phi_z=subs(phi,zeta, z/R)
-psi_z=subs(psi,zeta, z/R)
+Phi_polar = @(r,theta) Phi(r .* exp(1i*theta))
+Psi_polar = @(r,theta) Psi(r .* exp(1i*theta))
+
+%%
+phi=subs(Phi,zeta, z/R)
+psi=subs(Psi,zeta, z/R)
 %% 5. Stress Field Derivation
 % σ_xx + σ_yy = 4 * Re[phi'(z)]
 % σ_yy - σ_xx + 2i*tau_xy = 2 * [conj(z)*phi''(z) + psi'(z)]
 
-phi_p = diff(phi_z, z);
-phi_pp = diff(phi_p, z);
-psi_p = diff(psi_z, z);
+phi_p = diff(phi, z)
+phi_pp = diff(phi_p, z)
+psi_p = diff(psi, z)
 
 %% Substitute z = r*exp(i*theta)
 z_polar = r * exp(1i*theta);
-z_conj = r * exp(-1i*theta);
 
-S_sum = 4 * real(subs(phi_p, z, z_polar));
-S_diff = 2 * (z_conj * subs(phi_pp, z, z_polar) + subs(psi_p, z, z_polar));
+S_sum = 4 * real(subs(phi_p, z, z_polar))
+S_diff = 2 * (conj(z_polar) * subs(phi_pp, z, z_polar) + ...
+	subs(psi_p, z, z_polar))
 %% cartesian stress in polars (r,theta)
 % clc
-sig_xx_polars = (S_sum - real(S_diff))/2
-sig_yy_polars = (S_sum + real(S_diff))/2
-tau_xy_polars = imag(S_diff)/2
+sig_xx = (S_sum - real(S_diff))/2
+sig_yy = (S_sum + real(S_diff))/2
+tau_xy = imag(S_diff)/2
 
 % disp(sig_xx); disp(sig_yy); disp(tau_xy)
 
 %% Far field verification
-far_eqns=[limit(sig_xx,r,inf)==0, limit(sig_yy,r,inf)==sig_inf]
+limit(sig_xx,r,inf)
+limit(sig_yy,r,inf)
+
+far_eqns=[limit(sig_xx,r,inf)==0, 
+	limit(sig_yy,r,inf)==sig_inf]
+
 [Asol,Csol]=solve(far_eqns,[A,C],"Real",true)
+%%
+phi=subs(phi,[A,C],[Asol,Csol])
+psi=subs(psi,[A,C],[Asol,Csol])
 
-phi_z=subs(phi_z,[A,C],[Asol,Csol])
-psi_z=subs(psi_z,[A,C],[Asol,Csol])
-
-phi_p = diff(phi_z, z);
+phi_p = diff(phi, z);
 phi_pp = diff(phi_p, z);
-psi_p = diff(psi_z, z);
+psi_p = diff(psi, z);
 
 S_sum = 4 * real(phi_p)
 S_diff = 2 * (conj(z) * phi_pp + psi_p)
@@ -114,18 +124,40 @@ syms sig_xx sig_yy x y real
 % 	]
 % soln=solve(eqns, [sig_xx,sig_yy])
 
+%% polar components
+% R = so2(theta,"theta") # requires  Navigation Toolbox
+
+% syms sig_xx sig_yy tau_xy real
+sigma = [sig_xx, tau_xy;
+         tau_xy, sig_yy]
+
+theta                 % scalar angle
+R = [cos(theta), -sin(theta);
+     sin(theta),  cos(theta)]
+
+sigma_rot = R * sigma * R.'   % rotated stress tensor
+sig_xx_p = simplify(sigma_rot(1,1))
+sig_yy_p = simplify(sigma_rot(2,2))
+sig_xy_p = simplify(sigma_rot(1,2))
+
+
 %% verification at the rim
-subs(sig_xx_polars,[r,theta],[R,0])
-subs(sig_yy_polars,[r,theta],[R,0])
-subs(tau_xy_polars,[r,theta],[R,0])
+subs(sig_xx,[r,theta],[R,0])
+subs(sig_yy,[r,theta],[R,0])
+subs(tau_xy,[r,theta],[R,0])
+
+%% verification at the rim
+subs(sig_xx,[r,theta],[R,0])
+subs(sig_yy,[r,theta],[R,0])
+subs(tau_xy,[r,theta],[R,0])
 
 %%
 clc
-subs(sig_xx_polars,[r,theta],[R,pi/2])
-subs(sig_yy_polars,[r,theta],[R,pi/2])
-subs(tau_xy_polars,[r,theta],[R,pi/2])
+subs(sig_xx,[r,theta],[R,pi/2])
+subs(sig_yy,[r,theta],[R,pi/2])
+subs(tau_xy,[r,theta],[R,pi/2])
 %% 
-fprintf('Symbolic σ_yy at (r=R, theta=0): %s\n', char(simplify(subs(sig_yy_polars, [r, theta], [R, 0]))));
+fprintf('Symbolic σ_yy at (r=R, theta=0): %s\n', char(simplify(subs(sig_yy, [r, theta], [R, 0]))));
 % Result should be 3*sig_inf (Stress Concentration Factor)
 
 %% 10. Parameters and Grid Setup
@@ -161,8 +193,8 @@ B = -C;
 E = B;
 
 % Potentials phi(z) and psi(z)
-phi = A*z + (B*R^2)./z;
-psi_z = C*z + (D*R^2)./z + (E*R^4)./z.^3;
+Phi = A*z + (B*R^2)./z;
+psi = C*z + (D*R^2)./z + (E*R^4)./z.^3;
 
 % Derivatives needed for stress/disp
 % phi'(z) = A - B*R^2/z^2
@@ -192,7 +224,7 @@ sig_theta = sig_xx.*sin(theta_grid).^2 + ...
 
 %% 4. Compute Displacement Field
 % Formula: 2*mu*(u + iv) = kappa*phi(z) - z*conj(phi'(z)) - conj(psi(z))
-disp_complex = (kappa*phi - z.*conj(phi_prime) - conj(psi_z)) / (2*mu);
+disp_complex = (kappa*Phi - z.*conj(phi_prime) - conj(psi)) / (2*mu);
 U = real(disp_complex);
 V = imag(disp_complex);
 
