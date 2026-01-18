@@ -28,7 +28,7 @@ syms A B C D E real
 % C = sig_inf / 2;
 
 Phi = A * zeta + B / zeta
-Phi_prime_zeta = diff(Phi, zeta)
+Phi_prime = diff(Phi, zeta)
 
 Psi = C*zeta + D/zeta + E/zeta^3
 
@@ -38,9 +38,9 @@ Psi = C*zeta + D/zeta + E/zeta^3
 % For a circle: ω(σ)/conj(ω'(σ)) = (R*σ)/R = σ.
 % BC becomes: φ(σ) + σ * conj(φ'(σ)) + conj(ψ(σ)) = 0.
 
-%% 4. Solving for Coefficients (Symbolic Match)
+% 4. Solving for Coefficients (Symbolic Match)
 % On boundary ζ = σ (where σ*conj(σ) = 1)
-% conj(phi_prime_zeta) becomes A*R - B*R*σ^2
+% conj(phi_prime) becomes A*R - B*R*σ^2
 % conj(psi) becomes C*R/σ + D*R*σ + E*R*σ^3
 syms sigma
 term1 = A*sigma + B/sigma;
@@ -67,7 +67,7 @@ eqns=coeffs(expr, sigma)
 
 % phi_z = A*z + (Bsol*R^2)/z
 % psi_z = C*z + (Dsol*R^2)/z + (Esol*R^4)/z^3
-Phi=subs(Phi,[B],[Bsol])
+Phi=subs(Phi,B,Bsol)
 Psi=subs(Psi,[D,E],[Dsol,Esol])
 
 Phi_polar = @(r,theta) Phi(r .* exp(1i*theta))
@@ -102,22 +102,73 @@ tau_xy = imag(S_diff)/2
 limit(sig_xx,r,inf)
 limit(sig_yy,r,inf)
 
-far_eqns=[limit(sig_xx,r,inf)==0, 
+far_eqns=[limit(sig_xx,r,inf)==0, ...
 	limit(sig_yy,r,inf)==sig_inf]
 
 [Asol,Csol]=solve(far_eqns,[A,C],"Real",true)
 %%
 phi=subs(phi,[A,C],[Asol,Csol])
-psi=subs(psi,[A,C],[Asol,Csol])
+phi_p=subs(phi_p,[A,C],[Asol,Csol])
 
-phi_p = diff(phi, z);
-phi_pp = diff(phi_p, z);
-psi_p = diff(psi, z);
+psi=subs(psi,[A,C],[Asol,Csol])
+psi_p=subs(psi_p,[A,C],[Asol,Csol])
+
+%% plot the potentials
+
+% Parameters (modify)
+sig_inf_val = 100;    % scalar
+R_val = 1;        % inclusion radius
+r0_val = 1.5;       % radial distance at which to evaluate (r0 > R)
+ntheta = 1000;  % angular resolution
+
+% angular grid
+theta_val = linspace(0, 2*pi, ntheta);
+
+% complex argument z on circle r0*e^{i theta}
+z_val = r0_val .* exp(1i*theta_val);
+
+%% define functions
+% phi_func = @(z) (sig_inf_val .* z) ./ 4 - (R_val.^2 .* sig_inf_val) ./ (2 .* z);
+% psi_func = @(z) (sig_inf_val .* z) ./ 2 - (R_val.^2 .* sig_inf_val) ./ (2 .* z) - (R_val.^4 .* sig_inf_val) ./ (2 .* z.^3);
+
+phi
+phi_func = matlabFunction(phi, 'Vars', [z sig_inf R])
+
+phi_func(20,100,1)
+
+phi_p
+phi_p_func = matlabFunction(phi_p, 'Vars', [z sig_inf R])
+
+phi_p_func(20,100,1)
+
+% evaluate
+PhiVals = phi_func(z_val,1,0.5);size(PhiVals)
+
+psi_func = matlabFunction(psi, 'Vars', [z sig_inf R])
+psi_func(20,100,1)
+
+PsiVals = psi_func(z_val,1,0.5);size(PsiVals)
+
+%% polar plot: angle vs magnitude
+figure;
+pax = polaraxes;
+hold(pax, 'on');
+polarplot(pax, angle(PhiVals), abs(PhiVals), 'r', 'LineWidth', 1.5);
+polarplot(pax, angle(PsiVals), abs(PsiVals), 'b', 'LineWidth', 1.5);
+legend(pax, {'phi','psi'}, 'Location','best');
+title(pax, sprintf('Polar plot at r = %g', r0_val));
+hold(pax, 'off');
+%%
+phi_p = diff(phi, z)
+% dphi_fh = matlabFunction(phi_p, 'Vars', [z sig_inf R])
+
+phi_pp = diff(phi_p, z)
+psi_p = diff(psi, z)
 
 S_sum = 4 * real(phi_p)
 S_diff = 2 * (conj(z) * phi_pp + psi_p)
 
-syms sig_xx sig_yy x y real
+% syms sig_xx sig_yy x y real
 % eqns=[
 % 	sig_xx+sig_yy==subs(S_sum,z, x+i*y)
 % 	sig_yy-sig_xx==real(subs(S_diff,z, x+i*y))
@@ -128,17 +179,21 @@ syms sig_xx sig_yy x y real
 % R = so2(theta,"theta") # requires  Navigation Toolbox
 
 % syms sig_xx sig_yy tau_xy real
+sig_xx=subs(sig_xx,[A,C],[Asol,Csol])
+sig_yy=subs(sig_yy,[A,C],[Asol,Csol])
+tau_xy=subs(tau_xy,[A,C],[Asol,Csol])
+
 sigma = [sig_xx, tau_xy;
          tau_xy, sig_yy]
 
 theta                 % scalar angle
-R = [cos(theta), -sin(theta);
+Rot = [cos(theta), -sin(theta);
      sin(theta),  cos(theta)]
 
-sigma_rot = R * sigma * R.'   % rotated stress tensor
-sig_xx_p = simplify(sigma_rot(1,1))
-sig_yy_p = simplify(sigma_rot(2,2))
-sig_xy_p = simplify(sigma_rot(1,2))
+sigma_rot = Rot * sigma * Rot.'   % rotated stress tensor
+sig_r = simplify(sigma_rot(1,1))
+sig_theta = simplify(sigma_rot(2,2))
+tau_rtheta = simplify(sigma_rot(1,2))
 
 
 %% verification at the rim
@@ -161,70 +216,72 @@ fprintf('Symbolic σ_yy at (r=R, theta=0): %s\n', char(simplify(subs(sig_yy, [r,
 % Result should be 3*sig_inf (Stress Concentration Factor)
 
 %% 10. Parameters and Grid Setup
-clear; clc; close all;
+% clear; clc; close all;
 
 % Physical Parameters
-R = 1.0;            % Radius of hole
-sig_inf = 10.0;     % Far-field stress (Tension in Y)
-E_mod = 210e3;      % Young's Modulus (e.g., Steel in MPa)
-nu = 0.3;           % Poisson's ratio
-mu = E_mod / (2*(1+nu));        % Shear Modulus
+syms E_mod mu positive
+syms nu kappa real
+R_val = 1.0;            % Radius of hole
+sig_inf_val = 10.0;     % Far-field stress (Tension in Y)
+E_mod_val = 210e3;      % Young's Modulus (e.g., Steel in MPa)
+nu_val = 0.3;           % Poisson's ratio
+mu = E_mod / (2*(1+nu))        % Shear Modulus
 kappa = 3 - 4*nu;               % Kolosov constant (Plane Strain)
 
 % Create Grid (Polar for easy masking, then convert to Cartesian)
-r_min = R; 
-r_max = 5*R;
+r_min = R_val; 
+r_max = 5*R_val;
 nr = 60; ntheta = 90;
 r_vec = linspace(r_min, r_max, nr);
 theta_vec = linspace(0, 2*pi, ntheta);
-[r_grid, theta_grid] = meshgrid(r_vec, theta_vec);
+[r_grid, theta_grid] = meshgrid(r_vec, theta_vec); size(r_grid)
 
 % Convert to Complex Plane z
-X = r_grid .* cos(theta_grid);
-Y = r_grid .* sin(theta_grid);
-z = X + 1i*Y;
+X_grid = r_grid .* cos(theta_grid);
+Y_grid = r_grid .* sin(theta_grid);
+z_grid = X_grid + 1i*Y_grid; size(z_grid)
 
 %% 2. Calculate Potentials (Using your coefficients)
 % Coefficients for Y-Tension (as verified previously)
-A = sig_inf / 4;
-C = sig_inf / 2; 
-D = -2*A;
-B = -C;
-E = B;
-
-% Potentials phi(z) and psi(z)
-Phi = A*z + (B*R^2)./z;
-psi = C*z + (D*R^2)./z + (E*R^4)./z.^3;
-
-% Derivatives needed for stress/disp
-% phi'(z) = A - B*R^2/z^2
-phi_prime = A - (B*R^2)./(z.^2);
-% phi''(z) = 2*B*R^2/z^3
-phi_double_prime = (2*B*R^2)./(z.^3);
-% psi'(z) = C - D*R^2/z^2 - 3*E*R^4/z^4
-psi_prime = C - (D*R^2)./(z.^2) - (3*E*R^4)./(z.^4);
+% A = sig_inf / 4;
+% C = sig_inf / 2; 
+% D = -2*A;
+% B = -C;
+% E = B;
+% 
+% % Potentials phi(z) and psi(z)
+% Phi = A*z + (B*R^2)./z;
+% psi = C*z + (D*R^2)./z + (E*R^4)./z.^3;
+% 
+% % Derivatives needed for stress/disp
+% % phi'(z) = A - B*R^2/z^2
+% phi_prime = A - (B*R^2)./(z.^2);
+% % phi''(z) = 2*B*R^2/z^3
+% phi_double_prime = (2*B*R^2)./(z.^3);
+% % psi'(z) = C - D*R^2/z^2 - 3*E*R^4/z^4
+% psi_prime = C - (D*R^2)./(z.^2) - (3*E*R^4)./(z.^4);
 
 %% 3. Compute Stress Field
 % Formulas:
 % sig_xx + sig_yy = 4 * Re[phi'(z)]
 % sig_yy - sig_xx + 2i*tau_xy = 2 * [conj(z)*phi''(z) + psi'(z)]
 
-S_sum = 4 * real(phi_prime);
-S_diff_term = 2 * (conj(z).*phi_double_prime + psi_prime);
-
-sig_xx = (S_sum - real(S_diff_term)) / 2;
-sig_yy = (S_sum + real(S_diff_term)) / 2;
-tau_xy = imag(S_diff_term) / 2;
-
-% Calculate Hoop Stress (Sigma_theta) for the contour plot
-% Transformation: sig_theta = sig_x*sin^2 + sig_y*cos^2 - 2*tau*sin*cos
-sig_theta = sig_xx.*sin(theta_grid).^2 + ...
-            sig_yy.*cos(theta_grid).^2 - ...
-            2*tau_xy.*sin(theta_grid).*cos(theta_grid);
+% S_sum = 4 * real(phi_prime);
+% S_diff_term = 2 * (conj(z).*phi_double_prime + psi_prime);
+% 
+% sig_xx = (S_sum - real(S_diff_term)) / 2;
+% sig_yy = (S_sum + real(S_diff_term)) / 2;
+% tau_xy = imag(S_diff_term) / 2;
+% 
+% % Calculate Hoop Stress (Sigma_theta) for the contour plot
+% % Transformation: sig_theta = sig_x*sin^2 + sig_y*cos^2 - 2*tau*sin*cos
+% sig_theta = sig_xx.*sin(theta_grid).^2 + ...
+%             sig_yy.*cos(theta_grid).^2 - ...
+%             2*tau_xy.*sin(theta_grid).*cos(theta_grid);
 
 %% 4. Compute Displacement Field
 % Formula: 2*mu*(u + iv) = kappa*phi(z) - z*conj(phi'(z)) - conj(psi(z))
-disp_complex = (kappa*Phi - z.*conj(phi_prime) - conj(psi)) / (2*mu);
+disp_complex = (kappa*phi - z.*conj(phi_p) - conj(psi)) / (2*mu)
 U = real(disp_complex);
 V = imag(disp_complex);
 
@@ -233,7 +290,7 @@ figure('Color', 'w', 'Position', [100 100 900 700]);
 
 % --- Plot: Hoop Stress Contour + Displacement Quiver ---
 % We use 20 contour levels for smooth gradients
-[C_plot, h] = contourf(X, Y, sig_theta, 20, 'LineStyle', 'none'); 
+[C_plot, h] = contourf(X_grid, Y_grid, sig_theta, 20, 'LineStyle', 'none'); 
 hold on;
 colormap(jet); 
 c = colorbar;
@@ -243,8 +300,8 @@ clim([-sig_inf, 3*sig_inf]); % Set limits to highlight concentration
 % Add Displacement Vectors (Quiver)
 % We subsample the grid for quiver so arrows aren't too dense
 sample_step = 4; 
-q = quiver(X(1:sample_step:end, 1:sample_step:end), ...
-           Y(1:sample_step:end, 1:sample_step:end), ...
+q = quiver(X_grid(1:sample_step:end, 1:sample_step:end), ...
+           Y_grid(1:sample_step:end, 1:sample_step:end), ...
            U(1:sample_step:end, 1:sample_step:end), ...
            V(1:sample_step:end, 1:sample_step:end), ...
            'k', 'LineWidth', 1.2);
