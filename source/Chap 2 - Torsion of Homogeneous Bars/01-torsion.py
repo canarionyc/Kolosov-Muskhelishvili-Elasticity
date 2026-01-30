@@ -1,15 +1,16 @@
+# Example: Torsion of an Ellipse
+#%% setup
 import sympy as sp
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse
 
-# Define variables
+#%% Define variables
 x, y = sp.symbols('x y', real=True)
 z_sym = sp.symbols('z')  # Use a symbol for differentiation
 mu, tau = sp.symbols('mu tau', positive=True) # Rigidity and twist
 
-# Example: Torsion of an Ellipse
-# Complex Torsion Function F(z) approx i*A*z^2 (for ellipse)
+#%% Complex Torsion Function F(z) approx i*A*z^2 (for ellipse)
 # Let's verify the stresses
 A = sp.symbols('A')
 F_z_symbolic = sp.I * A * z_sym**2
@@ -26,7 +27,7 @@ z = x + sp.I*y
 dF_dz = dF_dz_symbolic.subs(z_sym, z)
 z_conj = x - sp.I*y
 
-# Complex Stress Vector
+#%% Complex Stress Vector
 Stress_Complex = mu * tau * (dF_dz - sp.I * z_conj)
 
 # Extract components
@@ -36,7 +37,7 @@ Y_z = -sp.im(Stress_Complex) # Note the sign convention in the book
 print(f"Stress X_z: {sp.simplify(X_z)}")
 print(f"Stress Y_z: {sp.simplify(Y_z)}")
 
-# --- Plotting ---
+#%% Plotting
 
 # Define ellipse parameters
 a = 2.0  # semi-major axis
@@ -73,7 +74,7 @@ ax.add_patch(ellipse_patch)
 # Plot the stress field
 quiver = ax.quiver(X, Y, U, V, color='b', alpha=0.7)
 ax.quiverkey(quiver, X=0.8, Y=0.9, U=np.nanmax(U),
-             label='Stress Vector', labelpos='E')
+             label='Stress Vector', labelpos='S')
 
 # Set plot limits and labels
 ax.set_xlim(-a * 1.2, a * 1.2)
