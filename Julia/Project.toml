@@ -1,0 +1,3 @@
+[deps]
+Symbolics = "011a49af-24a4-4b7a-99ca-9274923ae293"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"

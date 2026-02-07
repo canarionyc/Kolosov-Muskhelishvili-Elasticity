@@ -1,6 +1,7 @@
 %% Master Visualization Script: Infinite Plate with Circular Hole
 % Load Case: Uniaxial Tension in X-Direction (Sigma_xx = Sig_Inf)
 clear; clc; close all;
+export_flag = true; 
 
 %% 1. Parameters & Grid Generation
 R = 1.0;                  % Hole Radius
@@ -67,7 +68,7 @@ contourf(x, y, s_x, 20, 'LineStyle','none');
 axis equal; 
 colormap(gca, parula); 
 colorbar; 
-title('\sigma_{xx} (Longitudinal)');
+title('\sigma_{xx} (Longitudinal)', 'Color','k');
 viscircles([0 0], R, 'Color','k', 'LineWidth',1); 
 grid on;
 
@@ -101,6 +102,12 @@ title('Von Mises Equivalent Stress');
 viscircles([0 0], R, 'Color','k', 'LineWidth',1); 
 grid on;
 
+% One-off export with white background (ignores screen colors)
+if(export_flag)
+     exportgraphics(gcf, 'KirschX1.png', 'BackgroundColor', 'w');
+end
+exportgraphics(gcf, 'KirschX1.png', 'BackgroundColor', 'w');
+
 %% FIGURE 2: Engineering Analysis (Polar & Radial)
 figure('Color','w', 'Name', 'Engineering Validation', 'Position', [100 100 900 500]);
 t2 = tiledlayout(1, 2);
@@ -131,6 +138,11 @@ ylabel('Normalized Stress (\sigma_{\theta\theta} / \sigma_{\infty})');
 title('Stress Decay Analysis');
 legend; grid on; box on;
 xlim([1 5]);
+
+% One-off export with white background (ignores screen colors)
+if(export_flag)
+     exportgraphics(gcf, 'KirschX2.png', 'BackgroundColor', 'w');
+end
 
 %% FIGURE 3: Displacement & Deformation (Deformed Mesh)
 figure('Color','w', 'Name', 'Deformation Visualization', 'Position', [150 150 800 600]);
@@ -167,6 +179,12 @@ viscircles([0 0], R, 'Color', 'k', 'LineStyle', '--');
 title(sprintf('Deformed Mesh (Scale Factor: %.0f)', scale));
 axis equal; axis off;
 
+% One-off export with white background (ignores screen colors)
+if(export_flag)
+     exportgraphics(gcf, 'KirschX3.png', 'BackgroundColor', 'w');
+end         
+
+
 %% FIGURE 4: Photoelasticity (Isochromatics)
 figure('Color','k', 'Name', 'Simulated Photoelasticity', 'Position', [200 200 700 600]);
 
@@ -178,3 +196,8 @@ colorbar('Color', 'w');
 viscircles([0 0], R, 'Color','w', 'LineWidth', 2);
 axis equal; axis off;
 title('Simulated Isochromatics (\sigma_1 - \sigma_2)', 'Color', 'w');
+
+% One-off export with white background (ignores screen colors)
+if(export_flag)
+     exportgraphics(gcf, 'KirschX4.png', 'BackgroundColor', 'w');
+end   
